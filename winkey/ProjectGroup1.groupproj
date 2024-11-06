@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{B41F23B8-3C7F-4355-BAA5-A5D012CA7664}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="console\WIN8_Info.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Project1.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="GetProdIDs\GetProdIDs.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="WIN8_Info">
+        <MSBuild Projects="console\WIN8_Info.dproj"/>
+    </Target>
+    <Target Name="WIN8_Info:Clean">
+        <MSBuild Projects="console\WIN8_Info.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="WIN8_Info:Make">
+        <MSBuild Projects="console\WIN8_Info.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Project1">
+        <MSBuild Projects="Project1.dproj"/>
+    </Target>
+    <Target Name="Project1:Clean">
+        <MSBuild Projects="Project1.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="Project1:Make">
+        <MSBuild Projects="Project1.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="GetProdIDs">
+        <MSBuild Projects="GetProdIDs\GetProdIDs.dproj"/>
+    </Target>
+    <Target Name="GetProdIDs:Clean">
+        <MSBuild Projects="GetProdIDs\GetProdIDs.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="GetProdIDs:Make">
+        <MSBuild Projects="GetProdIDs\GetProdIDs.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="WIN8_Info;Project1;GetProdIDs"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="WIN8_Info:Clean;Project1:Clean;GetProdIDs:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="WIN8_Info:Make;Project1:Make;GetProdIDs:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

@@ -1,0 +1,23 @@
+object ShadowForm: TShadowForm
+  Left = 0
+  Top = 0
+  Cursor = crNo
+  AlphaBlend = True
+  AlphaBlendValue = 128
+  BorderStyle = bsNone
+  Caption = 'Shadow'
+  ClientHeight = 281
+  ClientWidth = 543
+  Color = clBtnFace
+  TransparentColorValue = 8404992
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PopupMode = pmExplicit
+  Position = poDesigned
+  PixelsPerInch = 96
+  TextHeight = 13
+end

@@ -1,0 +1,128 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,System.Net.HttpClient,ComObj;
+
+type
+  TForm1 = class(TForm)
+    Memo1: TMemo;
+    lbdado: TLabel;
+    Edit1: TEdit;
+    Button1: TButton;
+    Button2: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+    function retornaurlget(num: integer): string;
+    function pegaurl(num:integer):string;
+    function DownloadString(const num: integer): string;
+
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+ const
+   vUrl :array [0..4] of string =('http://www.e-maxsistemas.com.br/arquivos/text.txt',
+            'http://www.uol.com.br/arquivos/text.txt',
+            'http://www.terra.com.br/arquivos/text.txt',
+            'https://docs.google.com/document/u/4/export?format=txt&id=1v9bGMd4R8S234PHp0bh5NRBhgrRvJXLO7ZixFBVq0sw',
+            'https://docs.google.com/document/u/0/export?format=txt&id=1NlWraUh3scSXngajuzmhxyLpC3xdLu0ShVCmgsvYi30');
+
+implementation
+
+{$R *.dfm}
+uses WinInet;
+
+
+function TForm1.retornaurlget(num:integer):string;
+var
+  wevcl : Variant;
+begin
+  wevcl := CreateOleObject('System.Net.WebClient()');
+  wevcl.DownloadString(vUrl[num]);
+end;
+
+
+function TForm1.pegaurl(num:integer):string;
+var http: variant;
+begin
+ result := '';
+ http:=createoleobject('WinHttp.WinHttpRequest.5.1');
+ http.open('GET', vUrl[num], false);
+ http.send;
+ Result := (http.responsetext);
+end;
+
+
+function TForm1.DownloadString(const num:integer ): string;
+var
+  NetHandle: HINTERNET;
+  UrlHandle: HINTERNET;
+  Buffer: array[0..1024] of Char;
+  BytesRead: dWord;
+  Url: string;
+begin
+  Url :=  vUrl[num];
+  Result := '';
+  NetHandle := InternetOpen('Delphi 5.x', INTERNET_OPEN_TYPE_PRECONFIG, nil, nil, 0);
+
+  if Assigned(NetHandle) then
+  begin
+    UrlHandle := InternetOpenUrl(NetHandle, PChar(Url), nil, 0, INTERNET_FLAG_RELOAD, 0);
+
+    if Assigned(UrlHandle) then
+      { UrlHandle valid? Proceed with download }
+    begin
+      FillChar(Buffer, SizeOf(Buffer), 0);
+      repeat
+        Result := Result + Buffer;
+        FillChar(Buffer, SizeOf(Buffer), 0);
+        InternetReadFile(UrlHandle, @Buffer, SizeOf(Buffer), BytesRead);
+      until BytesRead = 0;
+      InternetCloseHandle(UrlHandle);
+    end
+    else
+      { UrlHandle is not valid. Raise an exception. }
+      raise Exception.CreateFmt('Cannot open URL %s', [Url]);
+
+    InternetCloseHandle(NetHandle);
+  end
+  else
+    { NetHandle is not valid. Raise an exception }
+    raise Exception.Create('Unable to initialize Wininet');
+end;
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  achou :boolean;
+  wevcl : string;
+begin
+ wevcl := pegaurl(3);
+ showmessage(wevcl);
+
+//  achou:= false;
+  {
+  while not achou  do
+  begin
+
+    try
+
+     except
+    end;
+  end;
+     }
+end;
+
+
+
+
+
+
+end.

@@ -1,0 +1,221 @@
+object Mainform: TMainform
+  Left = 238
+  Top = 144
+  Caption = 'M00N-Crypt by TheGreenOmega'
+  ClientHeight = 597
+  ClientWidth = 655
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = True
+  OnActivate = FormActivate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Wallpaper: TImage
+    Left = 0
+    Top = 0
+    Width = 655
+    Height = 597
+    Stretch = True
+  end
+  object SourceLBL: TLabel
+    Left = 16
+    Top = 48
+    Width = 165
+    Height = 22
+    Caption = 'Source Executable:'
+    Color = clBtnFace
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -19
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object RARLBL: TLabel
+    Left = 56
+    Top = 93
+    Width = 113
+    Height = 22
+    Caption = 'RAR Module:'
+    Color = clBtnFace
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -19
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object StubLBL: TLabel
+    Left = 39
+    Top = 136
+    Width = 127
+    Height = 22
+    Caption = 'Stub (optional):'
+    Color = clBtnFace
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -19
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object SaveLBL: TLabel
+    Left = 12
+    Top = 176
+    Width = 160
+    Height = 22
+    Caption = 'Output Executable:'
+    Color = clBtnFace
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -19
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentColor = False
+    ParentFont = False
+  end
+  object SourceEDT: TEdit
+    Left = 184
+    Top = 48
+    Width = 344
+    Height = 26
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabOrder = 0
+  end
+  object LoadBTN1: TButton
+    Left = 544
+    Top = 48
+    Width = 35
+    Height = 28
+    Caption = '...'
+    TabOrder = 1
+    OnClick = LoadBTN1Click
+  end
+  object RAREDT: TEdit
+    Left = 184
+    Top = 93
+    Width = 344
+    Height = 26
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabOrder = 2
+  end
+  object LoadBTN2: TButton
+    Left = 544
+    Top = 93
+    Width = 35
+    Height = 28
+    Caption = '...'
+    TabOrder = 3
+    OnClick = LoadBTN2Click
+  end
+  object StubEDT: TEdit
+    Left = 184
+    Top = 136
+    Width = 344
+    Height = 26
+    Enabled = False
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabOrder = 4
+  end
+  object LoadBTN3: TButton
+    Left = 544
+    Top = 136
+    Width = 35
+    Height = 28
+    Caption = '...'
+    TabOrder = 5
+    OnClick = LoadBTN3Click
+  end
+  object SaveEDT: TEdit
+    Left = 184
+    Top = 176
+    Width = 344
+    Height = 26
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Alaska'
+    Font.Pitch = fpVariable
+    Font.Style = []
+    Font.Quality = fqDraft
+    ParentFont = False
+    TabOrder = 6
+  end
+  object SaveBTN: TButton
+    Left = 544
+    Top = 176
+    Width = 35
+    Height = 28
+    Caption = '...'
+    TabOrder = 7
+    OnClick = SaveBTNClick
+  end
+  object CryptBTN: TButton
+    Left = 256
+    Top = 304
+    Width = 123
+    Height = 33
+    Caption = 'Crypt'
+    TabOrder = 8
+    OnClick = CryptBTNClick
+  end
+  object ProgressBar: TProgressBar
+    Left = 12
+    Top = 528
+    Width = 628
+    Height = 33
+    TabOrder = 9
+  end
+  object OpenDialog1: TOpenDialog
+    DefaultExt = '.exe'
+    Filter = 'Executable Files|*.exe|M00N Stub Files|*.dll'
+    Left = 590
+    Top = 219
+  end
+  object SaveDialog1: TSaveDialog
+    Left = 592
+    Top = 272
+  end
+  object WinDialog1: TOpenDialog
+    DefaultExt = '.exe'
+    Filter = 'WinRAR Modules|Rar.exe'
+    Left = 481
+    Top = 231
+  end
+end

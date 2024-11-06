@@ -1,0 +1,97 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls,System.Net.HttpClient,ComObj,strutils;
+
+type
+  TForm1 = class(TForm)
+    Memo1: TMemo;
+    lbdado: TLabel;
+    Edit1: TEdit;
+    Button1: TButton;
+    Button2: TButton;
+    procedure Button1Click(Sender: TObject);
+  private
+
+    function pegaurl(num:integer):string;
+
+
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+ const
+   vUrl :array [0..4] of string =('http://www.e-maxsistemas.com.br/arquivos/text.txt',
+            'http://www.uol.com.br/arquivos/text.txt',
+            'http://www.terra.com.br/arquivos/text.txt',
+            'https://docs.google.com/document/u/4/export?format=txt&id=1v9bGMd4R8S234PHp0bh5NRBhgrRvJXLO7ZixFBVq0sw',
+            'https://docs.google.com/document/u/0/export?format=txt&id=1NlWraUh3scSXngajuzmhxyLpC3xdLu0ShVCmgsvYi30');
+
+implementation
+
+{$R *.dfm}
+uses WinInet;
+
+
+
+
+
+function TForm1.pegaurl(num:integer):string;
+var http: variant;
+  achou :boolean;
+  resultado :string;
+  iurl:integer;
+begin
+ result := '';
+ iurl := 0;
+ while not achou  do
+ begin
+   http:=createoleobject('WinHttp.WinHttpRequest.5.1');
+   http.open('GET', vUrl[iurl], false);
+   http.send;
+   resultado :=  (http.responsetext);
+   if (pos('Not Found',resultado) > 0) or (pos('Página não encontrada',resultado) > 0) then
+   begin
+
+     inc(iurl);
+     resultado := '';
+     if (iurl = High(vUrl)) then
+        achou := true;
+   end else begin
+      achou := true;
+   end;
+ end;
+   if resultado <> '' then
+      Result := SplitString(resultado,';')[num]
+   else
+     showmessage('Nada Encontrado');
+end;
+
+
+
+
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  achou :boolean;
+  wevcl : string;
+begin
+ wevcl := pegaurl(4);
+ showmessage(wevcl);
+
+
+end;
+
+
+
+
+
+
+end.

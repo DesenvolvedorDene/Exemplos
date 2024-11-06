@@ -1,0 +1,279 @@
+{
+**************************************** **************************************** ******
+* Unit msprodkey v2.2 *
+**
+* Description: decode and view the product key, product ID and product name used *
+* Install: Windows 2000, XP, Server 2003, Office XP, 2003 .*
+** Updated * now works for users with non-administrative rights .*
+* Code cleanup and changes, commented .*
+**
+* Usage: Add msprodkey to your application's uses clause .*
+**
+* Example 1 :*
+**
+* Procedure tform1.button1click (Sender: tobject );*
+* Begin *
+* If not is_winvermin2k then // If the Windows version isn' t at least Windows 2000 *
+* Edit1.text: = 'windows 2000 or higher required! '// Display this message *
+* Else // If the Windows version is at least Windows 2000 *
+* Edit1.text: = view_win_key; // view the Windows product key *
+* Label1.caption: = pN; // view the Windows product name *
+* Label2.caption: = PID; // view the Windows product ID *
+* End ;*
+**
+* Example 2 :*
+* Procedure tform1.button2click (Sender: tobject );*
+* Begin *
+* If not is_oxp_installed then // If Office XP isn' t installed *
+* Edit1.text: = 'Office XP required! '// Display this message *
+* Else // If Office XP is installed *
+* Edit1.text: = view_oxp_key; // view the Office XP product key *
+* Label1.caption: = DN; // view the Office XP product name *
+* Label2.caption: = PID; // view the Office XP product ID *
+* End ;*
+**
+* Example 3 :*
+* Procedure tform1.button3click (Sender: tobject );*
+* Begin *
+* If not is_o2k3_installed then // If Office 2003 isn' t installed *
+* Edit1.text: = 'Office 2003 required! '// Display this message *
+* Else // If Office 2003 is installed *
+* Edit1.text: = view_o2k3_key; // view the Office 2003 productkey *
+* Label1.caption: = DN; // view the Office 2003 product name *
+* Label2.caption: = PID; // view the Office 2003 productid *
+* End ;*
+**
+**************************************** **************************************** ******
+}
+
+Interface
+
+UsesRegistry, windows, sysutils, classes;
+
+FunctionIs_winvermin2k: Boolean;// Check OS for Win 2000 or higher
+FunctionView_win_key:String;// View the Windows product key
+FunctionIs_oxp_installed: Boolean;// Check if Office XP is installed
+FunctionView_oxp_key:String;// View the Office XP Product Key
+FunctionIs_o2k3_installed: Boolean;// Check if Office 2003 is installed
+FunctionView_o2k3_key:String;// View the Office 2003 Product Key
+FunctionDecodeproductkey (ConstHexsrc:ArrayByte ):String;
+// Decodes the product key (s) from the Registry
+
+VaR
+Reg: Tregistry;
+Binarysize: integer;
+Hexbuf:ArrayByte;
+Temp: tstringlist;
+Keyname, keyname2, subkeyname, Pn, PID, DN:String;
+
+Implementation
+
+FunctionIs_winvermin2k: Boolean;
+VaR
+OS: tosversioninfo;
+Begin
+Zeromemory (@ OS, sizeof (OS ));
+OS. dwosversioninfosize: = sizeof (OS );
+Getversionex (OS );
+Result: = (OS. dwmajorversion> = 5)And
+(OS. dwplatformid = ver_platform_win32_nt );
+Pn: = '';// Holds the Windows product name
+PID: = '';// Holds the Windows product ID
+End;
+
+FunctionView_win_key:String;
+Begin
+Reg: = Tregistry. Create;
+Try
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+IfReg. openkeyreadonly ('/software/Microsoft/Windows NT/currentversion ')Then
+Begin
+IfReg. getdatatype ('digitalproductid') = rdbinaryThen
+Begin
+Pn: = (Reg. readstring ('productname '));
+PID: = (Reg. readstring ('produd D '));
+Binarysize: = reg. getdatasize ('digitalproductid ');
+Setlength (hexbuf, binarysize );
+IfBinarysize> 0Then
+Begin
+Reg. readbinarydata ('digitalproductid', hexbuf [0], binarysize );
+End;
+End;
+End;
+Finally
+Freeandnil (REG );
+End;
+
+Result: = '';
+Result: = decodeproductkey (hexbuf );
+End;
+
+FunctionIs_oxp_installed: Boolean;
+VaR
+Reg: Tregistry;
+Begin
+Reg: = Tregistry. Create;
+Try
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+Result: = reg. keyexists ('Software/Microsoft/office/10.0/registration ');
+Finally
+Reg. closekey;
+Reg. Free;
+End;
+DN: = '';// Holds the Office XP product display name
+PID: = '';// Holds the Office XP product ID
+End;
+
+FunctionView_oxp_key:String;
+Begin
+Try
+Reg: = Tregistry. Create;
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+Keyname: = 'Software/Microsoft/office/10.0/registration /';
+Reg. openkeyreadonly (keyname );
+Temp: = tstringlist. Create;
+Reg. getkeynames (temp );// Enumerate and hold the Office XP product (s) key name (s)
+Reg. closekey;
+Subkeyname: = temp. Strings [0];// Hold the first Office XP product key name
+Reg: = Tregistry. Create;
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+Keyname2: = 'Software/Microsoft/Windows/CurrentVersion/uninstall /';
+Reg. openkeyreadonly (keyname2 + subkeyname );
+DN: = (Reg. readstring ('displayname '));
+Reg. closekey;
+Except
+OnE: estringlisterrorDo
+Exit
+End;
+Try
+IfReg. openkeyreadonly (keyname + subkeyname)Then
+Begin
+IfReg. getdatatype ('digitalproductid') = rdbinaryThen
+Begin
+PID: = (Reg. readstring ('produd D '));
+Binarysize: = reg. getdatasize ('digitalproductid ');
+Setlength (hexbuf, binarysize );
+IfBinarysize> 0Then
+Begin
+Reg. readbinarydata ('digitalproductid', hexbuf [0], binarysize );
+End;
+End;
+End;
+Finally
+Freeandnil (REG );
+End;
+
+Result: = '';
+Result: = decodeproductkey (hexbuf );
+End;
+
+FunctionIs_o2k3_installed: Boolean;
+VaR
+Reg: Tregistry;
+Begin
+Reg: = Tregistry. Create;
+Try
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+Result: = reg. keyexists ('Software/Microsoft/office/11.0/registration ');
+Finally
+Reg. closekey;
+Reg. Free;
+End;
+DN: = '';// Holds the Office 2003 product display name
+PID: = '';// Holds the Office 2003 product ID
+End;
+
+FunctionView_o2k3_key:String;
+Begin
+Try
+Reg: = Tregistry. Create;
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+Keyname: = 'Software/Microsoft/office/11.0/registration /';
+Reg. openkeyreadonly (keyname );
+Temp: = tstringlist. Create;
+Reg. getkeynames (temp );
+// Enumerate and hold the Office 2003 product (s) key name (s)
+Reg. closekey;
+Subkeyname: = temp. Strings [0];// Hold the first Office 2003 product key name
+Reg: = Tregistry. Create;
+Reg. rootkey: = HKEY_LOCAL_MACHINE;
+Keyname2: = 'Software/Microsoft/Windows/CurrentVersion/uninstall /';
+Reg. openkeyreadonly (keyname2 + subkeyname );
+DN: = (Reg. readstring ('displayname '));
+Reg. closekey;
+Except
+OnE: estringlisterrorDo
+Exit
+End;
+Try
+IfReg. openkeyreadonly (keyname + subkeyname)Then
+Begin
+IfReg. getdatatype ('digitalproductid') = rdbinaryThen
+Begin
+PID: = (Reg. readstring ('produd D '));
+Binarysize: = reg. getdatasize ('digitalproductid ');
+Setlength (hexbuf, binarysize );
+IfBinarysize> 0Then
+Begin
+Reg. readbinarydata ('digitalproductid', hexbuf [0], binarysize );
+End;
+End;
+End;
+Finally
+Freeandnil (REG );
+End;
+
+Result: = '';
+Result: = decodeproductkey (hexbuf );
+End;
+
+FunctionDecodeproductkey (ConstHexsrc:ArrayByte ):String;
+Const
+Startoffset: integer = $34;{// Offset 34 = array [52]}
+Endoffset: integer = $34 + 15;{// Offset 34 + 15 (bytes) = array [64]}
+Digits:Array[0 .. 23]OfChar = ('B', 'C', 'D', 'F', 'G', 'h', 'J ',
+'K', 'M', 'P', 'Q', 'R', 't', 'V', 'w', 'x', 'y ', '2', '3', '4', '6', '7', '8', '9 ');
+Dlen: integer = 29;{// Length of decoded product key}
+Slen: integer = 15;
+{// Length of encoded product key in bytes (an total of 30 in chars )}
+VaR
+Hexdigitalpid:ArrayCardinal;
+Des:ArrayChar;
+I, n: integer;
+HN, value: Cardinal;
+Begin
+Setlength (hexdigitalpid, dlen );
+ForI: = startoffsetToEndoffsetDo
+Begin
+Hexdigitalpid [I-startoffset]: = hexsrc [I];
+End;
+
+Setlength (DES, dlen + 1 );
+
+ForI: = dlen-1Downto0Do
+Begin
+If(I + 1)MoD6) = 0)Then
+Begin
+Des [I]: = '-';
+End
+Else
+Begin
+Hn: = 0;
+ForN: = slen-1Downto0Do
+Begin
+Value: = (HNSHL8)OrHexdigitalpid [N];
+Hexdigitalpid [N]: = ValueDiv24;
+Hn: = ValueMoD24;
+End;
+Des [I]: = digits [HN];
+End;
+End;
+Des [dlen]: = CHR (0 );
+
+ForI: = 0ToLength (DES)Do
+Begin
+Result: = Result + des [I];
+End;
+End;
+
+End.

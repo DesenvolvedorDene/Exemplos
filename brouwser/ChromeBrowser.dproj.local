@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2021/04/18 11:43:35.000.357,D:\projetos_delphi\ChromeBrowser.dproj=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\MiniBrowser.dproj</Transaction>
+    <Transaction>2021/04/18 11:44:23.000.765,D:\projetos_delphi\uMiniBrowser.dfm=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\uMiniBrowser.dfm</Transaction>
+    <Transaction>2021/04/18 11:44:23.000.765,D:\projetos_delphi\uMiniBrowser.pas=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\uMiniBrowser.pas</Transaction>
+    <Transaction>2021/04/18 11:45:08.000.352,D:\projetos_delphi\uPreferences.dfm=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\uPreferences.dfm</Transaction>
+    <Transaction>2021/04/18 11:45:08.000.352,D:\projetos_delphi\uPreferences.pas=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\uPreferences.pas</Transaction>
+    <Transaction>2021/04/18 11:45:23.000.401,D:\projetos_delphi\uSimpleTextViewer.pas=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\uSimpleTextViewer.pas</Transaction>
+    <Transaction>2021/04/18 11:45:23.000.401,D:\projetos_delphi\uSimpleTextViewer.dfm=D:\Componentes_delphi\OldCEF4Delphi-master\demos\MiniBrowser\uSimpleTextViewer.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

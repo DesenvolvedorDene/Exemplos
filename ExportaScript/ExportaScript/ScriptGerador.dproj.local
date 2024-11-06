@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/11/30 10:35:37.000.308,S:\exemplos\sqlconvert\Unit1.dfm=C:\Users\softw\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/11/30 10:35:41.000.454,S:\exemplos\sqlconvert\Project1.dproj=C:\Users\softw\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>2020/11/30 10:58:22.000.741,S:\exemplos\sqlconvert\Unit2.pas=S:\exemplos\sqlconvert\untDatamodule.pas</Transaction>
+    <Transaction>2020/11/30 10:58:22.000.741,S:\exemplos\sqlconvert\Unit2.dfm=S:\exemplos\sqlconvert\untDatamodule.dfm</Transaction>
+    <Transaction>2020/11/30 10:59:18.000.916,S:\exemplos\sqlconvert\Unit1.dfm=S:\exemplos\sqlconvert\UntGeradorScript.dfm</Transaction>
+    <Transaction>2020/11/30 10:59:18.000.916,S:\exemplos\sqlconvert\Unit1.pas=S:\exemplos\sqlconvert\UntGeradorScript.pas</Transaction>
+    <Transaction>2020/12/11 09:21:38.000.437,S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\Project1.dproj=S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\ScriptGerador.dproj</Transaction>
+    <Transaction>2021/03/25 13:15:45.000.518,S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\Unit2.dfm=S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\frmEdit.dfm</Transaction>
+    <Transaction>2021/04/14 10:15:35.000.290,S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\untProjeto.dfm=S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\Unit3.dfm</Transaction>
+    <Transaction>2021/04/15 11:49:39.000.753,S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\untteste.dfm=S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\Unit3.dfm</Transaction>
+    <Transaction>2021/06/07 11:12:04.000.581,S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\unEditorSql.dfm=S:\Desenvolvimento\Sistemas\Cartorio\conversão\ExportaScript\Unit3.dfm</Transaction>
+  </Transactions>
+</BorlandProject>
